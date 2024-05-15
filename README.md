@@ -1,10 +1,10 @@
-# Einternship task
+# internship task
 
 simple web application for managing employees using Flask and MySQL. The application allows users to add, update, delete, and list employees.
 
-## Setup Instructions
+## setup instructions
 
-1. Install MySQL and python if not already installed.
+1. Install MySQL and Python if not already installed.
 2. Create a new database and table:
    ```sql
    CREATE DATABASE company;
@@ -15,5 +15,5 @@ simple web application for managing employees using Flask and MySQL. The applica
        name VARCHAR(255) NOT NULL,
        department VARCHAR(255) NOT NULL
    );
-3. change the username and password form app.py to your mysql credentials
+3. change the username and password from app.py to your MySQL credentials
 4. run app.py 
