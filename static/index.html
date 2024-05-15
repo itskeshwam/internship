@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <script>
+        async function fetchEmployees() {
+            const response = await fetch('/employees');
+            const employees = await response.json();
+            const employeeList = document.getElementById('employeeList');
+            employeeList.innerHTML = '';
+            employees.forEach(emp => {
+                const li = document.createElement('li');
+                li.textContent = `ID: ${emp.id}, Name: ${emp.name}, Department: ${emp.department}`;
+                employeeList.appendChild(li);
+            });
+        }
+
+        async function addEmployee(event) {
+            event.preventDefault();
+            const name = document.getElementById('addName').value;
+            const department = document.getElementById('addDepartment').value;
+            await fetch('/employees', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, department })
+            });
+            fetchEmployees();
+        }
+
+        async function updateEmployee(event) {
+            event.preventDefault();
+            const id = document.getElementById('updateId').value;
+            const name = document.getElementById('updateName').value;
+            const department = document.getElementById('updateDepartment').value;
+            await fetch(`/employees/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, department })
+            });
+            fetchEmployees();
+        }
+
+        async function deleteEmployee(event) {
+            event.preventDefault();
+            const id = document.getElementById('deleteId').value;
+            await fetch(`/employees/${id}`, {
+                method: 'DELETE'
+            });
+            fetchEmployees();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchEmployees();
+            document.getElementById('addForm').addEventListener('submit', addEmployee);
+            document.getElementById('updateForm').addEventListener('submit', updateEmployee);
+            document.getElementById('deleteForm').addEventListener('submit', deleteEmployee);
+        });
+    </script>
+</head>
+<body>
+    <h1>Employee Management</h1>
+
+    <h2>Add Employee</h2>
+    <form id="addForm">
+        <label for="addName">Name:</label>
+        <input type="text" id="addName" required>
+        <label for="addDepartment">Department:</label>
+        <input type="text" id="addDepartment" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Update Employee</h2>
+    <form id="updateForm">
+        <label for="updateId">ID:</label>
+        <input type="number" id="updateId" required>
+        <label for="updateName">Name:</label>
+        <input type="text" id="updateName" required>
+        <label for="updateDepartment">Department:</label>
+        <input type="text" id="updateDepartment" required>
+        <button type="submit">Update</button>
+    </form>
+
+    <h2>Delete Employee</h2>
+    <form id="deleteForm">
+        <label for="deleteId">ID:</label>
+        <input type="number" id="deleteId" required>
+        <button type="submit">Delete</button>
+    </form>
+
+    <h2>Employee List</h2>
+    <ul id="employeeList"></ul>
+</body>
+</html>
