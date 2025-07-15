@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # File paths
-syn_file = "/home/kali/CICFlowMeter/csv/syn_flood_enriched.csv"
-stomp_file = "/home/kali/CICFlowMeter/csv/stomp_flood_enriched.csv"
+syn_file = "D:\Internship\CICFlowMeter\csv\syn_flood_enriched.csv"
+stomp_file = "D:\Internship\CICFlowMeter\csv\stomp_flood_enriched.csv"
 
 # Load
 syn = pd.read_csv(syn_file)
